@@ -9,7 +9,9 @@ return $pluginFactorySettings = [
                     'menu_title' => 'Redis Manager',
                     'capability' => 'manage_options',
                     'menu_slug' => 'redis_manager',
-                    'callback' => function() {},
+                    'callback' => function() {
+                        require_once(plugin_dir_path(dirname(__FILE__)) . 'templates/index.php');
+                    },
                     'icon_url' => 'dashicons-store',
                     'position' => 110,
                 ]

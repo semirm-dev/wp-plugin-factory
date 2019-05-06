@@ -79,7 +79,7 @@ class Settings {
                 $page->getMenuTitle(), 
                 $page->getCapability(), 
                 $page->getMenuSlug(), 
-                [$page, 'getCallback'], 
+                $page->getCallback(), 
                 $page->getIconURL(), 
                 $page->getPosition()
             );
