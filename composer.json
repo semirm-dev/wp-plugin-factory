@@ -1,0 +1,15 @@
+{
+    "name": "semirm-dev/wp-plugin-factory",
+    "authors": [
+        {
+            "name": "Semir Mahovkic",
+            "email": "semirm.dev@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PluginFactory\\": "src"
+        }
+    },
+    "require": {}
+}
