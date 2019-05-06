@@ -1,0 +1,15 @@
+{
+    "name": "semirmahovkic/example-plugin",
+    "authors": [
+        {
+            "name": "Semir Mahovkic",
+            "email": "semirm.dev@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ExamplePlugin\\": "src"
+        }
+    },
+    "require": {}
+}
