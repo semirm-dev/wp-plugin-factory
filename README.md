@@ -1,2 +1,1 @@
-# wp-redis-manager
-Wordpress Redis Manager
+# Wordpress Plugin Factory
