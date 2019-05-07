@@ -38,9 +38,11 @@ class Admin implements ServiceRegistrable {
             array_push($pages, $this->buildPage($pageOptions));
         }
 
-        $this->settings->setSettingsLinkTitle($options['settings']['settings_link_title'] ?? 'Settings');
-        $this->settings->setSettingsLink($options['settings']['settings_link'] ?? 'admin.php');
-        $this->settings->setAdminPageSlug($options['settings']['menu_slug'] ?? 'plugin_factory');
+        if (isset($options['settings'])) {
+            $this->settings->setSettingsLinkTitle($options['settings']['settings_link_title'] ?? 'Settings');
+            $this->settings->setSettingsLink($options['settings']['settings_link'] ?? 'admin.php');
+            $this->settings->setAdminPageSlug($options['settings']['menu_slug'] ?? 'plugin_factory');
+        }
 
         $this->settings->withPages($pages)->register();
     }
