@@ -41,9 +41,7 @@ class EnqueueScripts implements ServiceRegistrable {
             isset($this->options['scripts']['src']) && 
             count($this->options['scripts']['src']) > 0) {
 
-                foreach ($this->options['scripts']['src'] as $script) {
-                    wp_enqueue_script($this->options['scripts']['handle'], $this->pluginURL() . $script);
-                }
+                $this->enqueueJs($this->options['scripts']['handle'], $this->options['scripts']['src']);
         }
 
         if (isset($this->options['styles']) && 
@@ -51,9 +49,35 @@ class EnqueueScripts implements ServiceRegistrable {
             isset($this->options['styles']['src']) && 
             count($this->options['styles']['src']) > 0) {
 
-                foreach ($this->options['styles']['src'] as $style) {
-                    wp_enqueue_style($this->options['styles']['handle'], $this->pluginURL() . $style);
-                }
+                $this->enqueueStyles($this->options['styles']['handle'], $this->options['styles']['src']);
+        }
+    }
+
+    /**
+     * Helper function to enqueue Js scripts
+     *
+     * @param   string  $handle 
+     * @param   array   $options
+     *
+     * @return  void            
+     */
+    private function enqueueJs(string $handle, array $scripts): void {
+        foreach ($scripts as $script) {
+            wp_enqueue_script($handle, $this->pluginURL() . $script);
+        }
+    }
+
+    /**
+     * Helper function to enqueue styles
+     *
+     * @param   string  $handle  
+     * @param   array   $styles  
+     *
+     * @return  void             
+     */
+    private function enqueueStyles(string $handle, array $styles): void {
+        foreach ($styles as $style) {
+            wp_enqueue_style($handle, $this->pluginURL() . $style);
         }
     }
 }

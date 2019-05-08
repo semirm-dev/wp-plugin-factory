@@ -39,7 +39,7 @@ class Settings {
     private $adminPageSlug = '';
 
     /**
-     * @override
+     * Register admin menu page and plugin action links
      *
      * @param   array  $options 
      *

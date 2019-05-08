@@ -54,7 +54,7 @@ class Admin implements ServiceRegistrable {
      *
      * @return  Page                  
      */
-    private function buildPage($pageOptions): Page {
+    private function buildPage(array $pageOptions): Page {
         $page = new Page();
 
         $page->setTitle($pageOptions['title'] ?? 'Plugin Factory');
