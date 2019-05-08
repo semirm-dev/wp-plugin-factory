@@ -57,7 +57,7 @@ class EnqueueScripts implements ServiceRegistrable {
      * Helper function to enqueue Js scripts
      *
      * @param   string  $handle 
-     * @param   array   $options
+     * @param   array   $scripts
      *
      * @return  void            
      */
