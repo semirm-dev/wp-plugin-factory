@@ -104,13 +104,13 @@ class Admin implements ServiceContract {
     private function applyLinks(array $links): void {
         if (!empty($links)) {
             foreach ($links as $link) {
-                $pluginLinks = new PluginLinks();
+                $pluginLink = new PluginLink();
 
-                $pluginLinks->setTitle($link['link_title'] ?? 'Settings');
-                $pluginLinks->setLink($link['link'] ?? 'admin.php');
-                $pluginLinks->setSlug($link['link_menu_slug'] ?? 'plugin_factory');
+                $pluginLink->setTitle($link['link_title'] ?? 'Settings');
+                $pluginLink->setLink($link['link'] ?? 'admin.php');
+                $pluginLink->setSlug($link['link_menu_slug'] ?? 'plugin_factory');
 
-                $pluginLinks->apply();
+                $pluginLink->apply();
             }
         }
     }

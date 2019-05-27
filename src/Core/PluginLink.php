@@ -6,7 +6,7 @@ use PluginFactory\Base;
 /**
  * Plugin links (settings, etc.)
  */
-class PluginLinks {
+class PluginLink {
     use Base;
 
     /**
