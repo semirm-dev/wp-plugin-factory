@@ -17,7 +17,7 @@ return $pluginFactorySettings = [
                 ],
             ],
             'settings' => [
-                'menu_slug' => 'example_plugin',
+                'settings_link_menu_slug' => 'example_plugin',
                 // 'settings_link_title' => 'Visit Settings',
                 // 'settings_link' => 'options-general.php'
             ]

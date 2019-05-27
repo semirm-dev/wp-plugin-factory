@@ -5,23 +5,30 @@ use PluginFactory\ServiceRegistrable;
 use PluginFactory\Base;
 
 /**
- * Admin service will create admin pages/settings
+ * Admin service will create admin pages and subpages, additional settings
  */
 class Admin implements ServiceRegistrable {
     use Base;
 
     /**
-     * Settings instance
+     * Top level admin pages to add
      *
-     * @var Settings
+     * @var array Page
      */
-    private $settings;
+    private $pages = [];
 
     /**
-     * Side-effect: Initialize new Settings
+     * pluginLinks instance
+     *
+     * @var pluginLinks
+     */
+    private $pluginLinks;
+
+    /**
+     * Default empty constructor
      */
     public function __construct() {
-        $this->settings = new Settings();
+        
     }
 
     /**
@@ -32,19 +39,43 @@ class Admin implements ServiceRegistrable {
      * @return  void             
      */
     public function register(array $options): void {
-        $pages = [];
-
         foreach ($options['pages'] as $pageOptions) {
-            array_push($pages, $this->buildPage($pageOptions));
+            array_push($this->pages, $this->buildPage($pageOptions));
         }
+
+        if (!empty($this->pages)) {
+            add_action('admin_menu', [$this, 'menuPage']);
+        } 
 
         if (isset($options['settings'])) {
-            $this->settings->setSettingsLinkTitle($options['settings']['settings_link_title'] ?? 'Settings');
-            $this->settings->setSettingsLink($options['settings']['settings_link'] ?? 'admin.php');
-            $this->settings->setAdminPageSlug($options['settings']['menu_slug'] ?? 'plugin_factory');
-        }
+            $this->pluginLinks = new PluginLinks();
 
-        $this->settings->withPages($pages)->register();
+            $this->pluginLinks->setTitle($options['settings']['settings_link_title'] ?? 'Settings');
+            $this->pluginLinks->setLink($options['settings']['settings_link'] ?? 'admin.php');
+            $this->pluginLinks->setSlug($options['settings']['settings_link_menu_slug'] ?? 'plugin_factory');
+
+            $this->pluginLinks->apply();
+        }
+    }
+
+    /**
+     * Admin menu action hook
+     * Loop through all pages and call add_menu_page
+     *
+     * @return  void 
+     */
+    public function menuPage(): void {
+        foreach ($this->pages as $page) {
+            add_menu_page(
+                $page->getTitle(), 
+                $page->getMenuTitle(), 
+                $page->getCapability(), 
+                $page->getMenuSlug(), 
+                $page->getCallback(), 
+                $page->getIconURL(), 
+                $page->getPosition()
+            );
+        }
     }
 
     /**
