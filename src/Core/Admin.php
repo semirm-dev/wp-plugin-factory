@@ -129,7 +129,7 @@ class Admin implements ServiceContract {
         $page->setMenuTitle($pageOptions['menu_title'] ?? 'Plugin Factory');
         $page->setCapability($pageOptions['capability'] ?? 'manage_options');
         $page->setMenuSlug($pageOptions['menu_slug'] ?? 'plugin_factory');
-        $page->setCallback($pageOptions['callback'] ?? [new DefaultPageCallback(), 'template']);
+        $page->setCallback($pageOptions['callback'] ?? [new DefaultPageCallbacks(), 'mainPageTemplate']);
         $page->setIconURL($pageOptions['icon_url'] ?? 'dashicons-store');
         $page->setPosition($pageOptions['position'] ?? self::DEFAULT_POSITION);
 
