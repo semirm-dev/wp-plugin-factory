@@ -48,7 +48,7 @@ abstract class BasePlugin {
         foreach ($this->services() as $service => $options) {
             $serviceInstance = new $service;
 
-            if ($serviceInstance instanceof ServiceRegistrable) {
+            if ($serviceInstance instanceof ServiceContract) {
 
                 $serviceInstance->register($options);
             }

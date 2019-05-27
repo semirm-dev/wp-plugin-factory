@@ -6,6 +6,6 @@ namespace PluginFactory;
  *
  * @return  void 
  */
-interface ServiceRegistrable {
+interface ServiceContract {
     public function register(array $options): void;
 }

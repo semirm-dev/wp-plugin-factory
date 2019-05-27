@@ -1,12 +1,12 @@
 <?php
 namespace ExamplePlugin\CPT;
 
-use PluginFactory\ServiceRegistrable;
+use PluginFactory\ServiceContract;
 
 /**
  * Custom post type
  */
-class Book implements ServiceRegistrable {
+class Book implements ServiceContract {
 
     /**
      * @override

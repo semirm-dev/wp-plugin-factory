@@ -1,13 +1,13 @@
 <?php
 namespace PluginFactory\Core;
 
-use PluginFactory\ServiceRegistrable;
+use PluginFactory\ServiceContract;
 use PluginFactory\Base;
 
 /**
  * Service to enqueue scripts (js, css)
  */
-class EnqueueScripts implements ServiceRegistrable {
+class EnqueueScripts implements ServiceContract {
     use Base;
 
     /**

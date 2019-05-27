@@ -1,7 +1,6 @@
 <?php
 namespace PluginFactory\Core;
 
-use PluginFactory\ServiceRegistrable;
 use PluginFactory\Base;
 
 /**

@@ -1,14 +1,21 @@
 <?php
 namespace PluginFactory\Core;
 
-use PluginFactory\ServiceRegistrable;
+use PluginFactory\ServiceContract;
 use PluginFactory\Base;
 
 /**
  * Admin service will create admin pages and subpages, additional settings
  */
-class Admin implements ServiceRegistrable {
+class Admin implements ServiceContract {
     use Base;
+
+    /**
+     * Default page position
+     *
+     * @var int 
+     */
+    private const DEFAULT_POSITION = 110;
 
     /**
      * Top level admin pages to add
@@ -124,7 +131,7 @@ class Admin implements ServiceRegistrable {
         $page->setMenuSlug($pageOptions['menu_slug'] ?? 'plugin_factory');
         $page->setCallback($pageOptions['callback'] ?? function() {});
         $page->setIconURL($pageOptions['icon_url'] ?? 'dashicons-store');
-        $page->setPosition($pageOptions['position'] ?? 110);
+        $page->setPosition($pageOptions['position'] ?? self::DEFAULT_POSITION);
 
         return $page;
     }
