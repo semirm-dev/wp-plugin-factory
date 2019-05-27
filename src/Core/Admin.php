@@ -18,11 +18,11 @@ class Admin implements ServiceRegistrable {
     private $pages = [];
 
     /**
-     * pluginLinks instance
+     * Links for plugin
      *
-     * @var pluginLinks
+     * @var array
      */
-    private $pluginLinks;
+    private $links = [];
 
     /**
      * Default empty constructor
@@ -39,32 +39,22 @@ class Admin implements ServiceRegistrable {
      * @return  void             
      */
     public function register(array $options): void {
-        foreach ($options['pages'] as $pageOptions) {
-            array_push($this->pages, $this->buildPage($pageOptions));
+        if (isset($options['pages'])) {
+            $this->addPages($options['pages']);
         }
-
-        if (!empty($this->pages)) {
-            add_action('admin_menu', [$this, 'menuPage']);
-        } 
-
+        
         if (isset($options['settings'])) {
-            $this->pluginLinks = new PluginLinks();
-
-            $this->pluginLinks->setTitle($options['settings']['settings_link_title'] ?? 'Settings');
-            $this->pluginLinks->setLink($options['settings']['settings_link'] ?? 'admin.php');
-            $this->pluginLinks->setSlug($options['settings']['settings_link_menu_slug'] ?? 'plugin_factory');
-
-            $this->pluginLinks->apply();
+            $this->applyLinks($options['settings']);
         }
     }
 
     /**
-     * Admin menu action hook
+     * Action hook to add main menu pages
      * Loop through all pages and call add_menu_page
      *
      * @return  void 
      */
-    public function menuPage(): void {
+    public function mainMenuPages(): void {
         foreach ($this->pages as $page) {
             add_menu_page(
                 $page->getTitle(), 
@@ -79,7 +69,45 @@ class Admin implements ServiceRegistrable {
     }
 
     /**
-     * Helper function to create page from available options
+     * Helper function at add main menu pages
+     *
+     * @param   array  $pages  Pages to add
+     *
+     * @return  void           
+     */
+    private function addPages(array $pages): void {
+        if (!empty($pages)) {
+            foreach ($pages as $pageOptions) {
+                array_push($this->pages, $this->buildPage($pageOptions));
+            }
+
+            if (!empty($this->pages)) {
+                add_action('admin_menu', [$this, 'mainMenuPages']);
+            } 
+        }
+    }
+
+    /**
+     * Helper function to apply plugin links
+     *
+     * @param   array  $links  Links to apply
+     *
+     * @return  void           
+     */
+    private function applyLinks(array $links): void {
+        if (!empty($links)) {
+            $pluginLinks = new PluginLinks();
+
+            $pluginLinks->setTitle($links['settings_link_title'] ?? 'Settings');
+            $pluginLinks->setLink($links['settings_link'] ?? 'admin.php');
+            $pluginLinks->setSlug($links['settings_link_menu_slug'] ?? 'plugin_factory');
+
+            $pluginLinks->apply();
+        }
+    }
+
+    /**
+     * Helper function to create page from available page options
      *
      * @param   array  $pageOptions 
      *
