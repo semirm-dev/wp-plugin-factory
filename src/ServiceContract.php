@@ -7,5 +7,11 @@ namespace PluginFactory;
  * @return  void 
  */
 interface ServiceContract {
+
+    /**
+     * Register service
+     * 
+     * @param array $options Pass options to service registration
+     */
     public function register(array $options): void;
 }
