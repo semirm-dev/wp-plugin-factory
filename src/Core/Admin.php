@@ -43,8 +43,8 @@ class Admin implements ServiceRegistrable {
             $this->addPages($options['pages']);
         }
         
-        if (isset($options['settings'])) {
-            $this->applyLinks($options['settings']);
+        if (isset($options['links'])) {
+            $this->applyLinks($options['links']);
         }
     }
 
@@ -96,13 +96,15 @@ class Admin implements ServiceRegistrable {
      */
     private function applyLinks(array $links): void {
         if (!empty($links)) {
-            $pluginLinks = new PluginLinks();
+            foreach ($links as $link) {
+                $pluginLinks = new PluginLinks();
 
-            $pluginLinks->setTitle($links['settings_link_title'] ?? 'Settings');
-            $pluginLinks->setLink($links['settings_link'] ?? 'admin.php');
-            $pluginLinks->setSlug($links['settings_link_menu_slug'] ?? 'plugin_factory');
+                $pluginLinks->setTitle($link['link_title'] ?? 'Settings');
+                $pluginLinks->setLink($link['link'] ?? 'admin.php');
+                $pluginLinks->setSlug($link['link_menu_slug'] ?? 'plugin_factory');
 
-            $pluginLinks->apply();
+                $pluginLinks->apply();
+            }
         }
     }
 

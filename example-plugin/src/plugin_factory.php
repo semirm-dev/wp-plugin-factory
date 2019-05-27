@@ -16,10 +16,17 @@ return $pluginFactorySettings = [
                     'position' => 110,
                 ],
             ],
-            'settings' => [
-                'settings_link_menu_slug' => 'example_plugin',
-                // 'settings_link_title' => 'Visit Settings',
-                // 'settings_link' => 'options-general.php'
+            'links' => [
+                [
+                    'link_title' => 'Visit Settings',
+                    'link' => 'admin.php',
+                    'link_menu_slug' => 'example_plugin'
+                ],
+                [
+                    'link_title' => 'My link',
+                    'link' => 'options-general.php',
+                    'link_menu_slug' => 'example_plugin'
+                ]
             ]
         ],
         PluginFactory\Core\EnqueueScripts::class => [
