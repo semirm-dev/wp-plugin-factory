@@ -9,9 +9,11 @@ return $pluginFactorySettings = [
                     'menu_title' => 'Example Plugin',
                     'capability' => 'manage_options',
                     'menu_slug' => 'example_plugin',
-                    'callback' => function() {
-                        require_once(plugin_dir_path(dirname(__FILE__)) . 'templates/index.php');
-                    },
+                    'callback' => [new ExamplePlugin\SomePageCallback(), 'template'],
+                    // or use callback func
+                    // 'callback' => function() {
+                    //     require_once(plugin_dir_path(dirname(__FILE__)) . 'templates/index.php');
+                    // },
                     'icon_url' => 'dashicons-store',
                     'position' => 110,
                 ],
