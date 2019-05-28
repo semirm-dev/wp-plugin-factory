@@ -88,9 +88,7 @@ class Admin implements ServiceContract {
                 array_push($this->pages, $this->buildPage($pageOptions));
             }
 
-            if (!empty($this->pages)) {
-                add_action('admin_menu', [$this, 'mainMenuPages']);
-            } 
+            add_action('admin_menu', [$this, 'mainMenuPages']);
         }
     }
 
