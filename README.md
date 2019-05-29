@@ -132,19 +132,17 @@ custom_fields:
       option_name: text_example
     - option_group: example_plugin_option_group
       option_name: text_example_2
-      # optional custom callback
-      callback:
-        class: ExamplePlugin\FieldCallbacks
-        func: customOptionGroup
+      # callback:
+      #   class: ExamplePlugin\FieldCallbacks
+      #   func: customOptionGroup
     sections:
     - id: example_plugin_index
       title: Settings
-      # optional custom callback
-      callback:
-        class: ExamplePlugin\FieldCallbacks
-        func: customIndexSection
-        params: 
-          title: My admin panel settings
+      # callback:
+      #   class: ExamplePlugin\FieldCallbacks
+      #   func: customIndexSection
+      #   params: 
+      #     title: My admin panel settings
       page: example_plugin
     fields:
     - id: text_example
@@ -152,17 +150,17 @@ custom_fields:
       # note either builtin default type or custom class + func is required
       callback:
         type: TextField
+        # class: ExamplePlugin\FieldCallbacks
+        # func: customTextField
+        # params:
+        #   place_holder: Placeholder text 1 :)
       page: example_plugin
       section: example_plugin_index
       args:
     - id: text_example_2
       title: Field 2 title
-      # note either builtin default type or custom class + func is required
       callback:
-        class: ExamplePlugin\FieldCallbacks
-        func: customTextField
-        params:
-          place_holder: Placeholder text 2 :)
+        type: TextField
       page: example_plugin
       section: example_plugin_index
       args:
