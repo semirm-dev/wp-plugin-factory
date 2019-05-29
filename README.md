@@ -165,13 +165,13 @@ custom_fields:
       section: example_plugin_index
       args:
     - id: text_example_3
-    title: Field 3 title
-    callback:
-      type: TextArea
-      params:
-        col: 30
-        row: 3
-    page: example_plugin
-    section: example_plugin_index
-    args:
+      title: Field 3 title
+      callback:
+        type: TextArea
+        params:
+          col: 30
+          row: 3
+      page: example_plugin
+      section: example_plugin_index
+      args:
 ```
