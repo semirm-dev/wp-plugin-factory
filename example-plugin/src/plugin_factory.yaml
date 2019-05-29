@@ -36,7 +36,6 @@ custom_fields:
       callback:
         class: ExamplePlugin\FieldCallbacks
         func: optionGroup
-        params:
     sections:
     - id: example_plugin_index
       title: Settings
@@ -47,13 +46,12 @@ custom_fields:
           title: My admin panel settings
       page: example_plugin
     fields:
-    - id: example_plugin_field_id
+    - id: text_example
       title: Field 1 title
       callback:
         class: ExamplePlugin\FieldCallbacks
         func: textField
         params:
-          id: example_plugin_field_id
           place_holder: Placeholder text :)
       page: example_plugin
       section: example_plugin_index

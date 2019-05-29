@@ -33,11 +33,8 @@ class CustomFieldContractor {
         foreach ($settingsOptions as $settings) {
             $class = $settings['callback']['class'] ?? null;
             $func = $settings['callback']['func'] ?? '';
-            $params = $settings['callback']['params'] ?? null;
 
-            register_setting($settings['option_group'], $settings['option_name'], function() use ($class, $func, $params) {
-                call_user_func_array([new $class(), $func], [$params]);
-            });
+            register_setting($settings['option_group'], $settings['option_name'], [new $class(), $func]);
         }
     }
 
@@ -69,12 +66,14 @@ class CustomFieldContractor {
      */
     private function addFields(array $fieldOptions): void {
         foreach ($fieldOptions as $field) {
+            $id = $field['id'];
+
             $class = $field['callback']['class'] ?? null;
             $func = $field['callback']['func'] ?? '';
             $params = $field['callback']['params'] ?? null;
 
-            add_settings_field($field['id'], $field['title'], function() use ($class, $func, $params) {
-                call_user_func_array([new $class(), $func], [$params]);
+            add_settings_field($field['id'], $field['title'], function() use ($class, $func, $id, $params) {
+                call_user_func_array([new $class(), $func], [$id, $params]);
             }, $field['page'], $field['section'], $field['args']);
         }
     }

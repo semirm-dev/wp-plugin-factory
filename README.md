@@ -76,19 +76,19 @@ namespace ExamplePlugin\Core;
 
 class FieldCallbacks {
 
-    public function optionGroup(array $params) {
-        // code
+    public function optionGroup($input) {
+        return $input;
     }
 
     public function indexSection(array $params) {
         echo $params['title'] ?? 'My title default';
     }
 
-    public function textField(array $params) {
-        $val = esc_attr(get_option($params['id']));
+    public function textField(string $id, array $params) {
+        $val = esc_attr(get_option($id));
         $placeHolder = esc_attr($params['place_holder'] ?? 'My placeholder default');
 
-        echo '<input type="text" class="regular-text" name="' . $params['id'] . '" value="' . $val . '" placeholder="' . $placeHolder . '"/>';
+        echo '<input type="text" class="regular-text" name="' . $id . '" value="' . $val . '" placeholder="' . $placeHolder . '"/>';
     }
 }
 ```
@@ -133,7 +133,6 @@ custom_fields:
       callback:
         class: ExamplePlugin\FieldCallbacks
         func: optionGroup
-        params:
     sections:
     - id: example_plugin_index
       title: Settings
@@ -144,13 +143,12 @@ custom_fields:
           title: My admin panel settings
       page: example_plugin
     fields:
-    - id: example_plugin_field_id
+    - id: text_example
       title: Field 1 title
       callback:
         class: ExamplePlugin\FieldCallbacks
         func: textField
         params:
-          id: example_plugin_field_id
           place_holder: Placeholder text :)
       page: example_plugin
       section: example_plugin_index
