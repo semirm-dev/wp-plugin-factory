@@ -33,11 +33,11 @@ custom_fields:
     settings:
     - option_group: example_plugin_option_group
       option_name: text_example
-    - option_group: example_plugin_option_group
-      option_name: text_example_2
       # callback:
       #   class: ExamplePlugin\FieldCallbacks
       #   func: customOptionGroup
+    - option_group: example_plugin_option_group
+      option_name: text_example_2
     sections:
     - id: example_plugin_index
       title: Settings

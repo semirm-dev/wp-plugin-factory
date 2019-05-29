@@ -11,7 +11,7 @@ class CustomFieldContractor {
      *
      * @var  string
      */
-    private const FIELDS_NAMESPACE = 'PluginFactory\\Core\\';
+    private const FIELDS_NAMESPACE = 'PluginFactory\\Core\\Fields\\';
 
     /**
      * Register custom fields
