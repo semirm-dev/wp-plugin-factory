@@ -19,7 +19,9 @@ abstract class BasePlugin {
     /**
      * Path to plugin factory settings file
      */
-    abstract protected function pluginFactoryPath(): string;
+    protected function pluginFactoryPath(): string {
+        return $this->defaultSettingsPath();
+    }
 
     /**
      * Activate plugin

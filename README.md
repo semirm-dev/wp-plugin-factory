@@ -45,6 +45,8 @@ class Plugin extends BasePlugin {
 
     /**
      * @override
+     * 
+     * Optionally, override default plugin_factory.yaml path
      *
      * @return  string  plugin_factory path
      */
