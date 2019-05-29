@@ -135,6 +135,8 @@ custom_fields:
       #   func: customOptionGroup
     - option_group: example_plugin_option_group
       option_name: text_example_2
+    - option_group: example_plugin_option_group
+      option_name: text_example_3
     sections:
     - id: example_plugin_index
       title: Settings
