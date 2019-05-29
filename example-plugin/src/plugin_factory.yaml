@@ -36,6 +36,11 @@ custom_fields:
       callback:
         class: ExamplePlugin\FieldCallbacks
         func: optionGroup
+    - option_group: example_plugin_option_group
+      option_name: text_example_2
+      callback:
+        class: ExamplePlugin\FieldCallbacks
+        func: optionGroup
     sections:
     - id: example_plugin_index
       title: Settings
@@ -53,6 +58,16 @@ custom_fields:
         func: textField
         params:
           place_holder: Placeholder text :)
+      page: example_plugin
+      section: example_plugin_index
+      args:
+    - id: text_example_2
+      title: Field 2 title
+      callback:
+        class: ExamplePlugin\FieldCallbacks
+        func: textField
+        params:
+          place_holder: Placeholder text 2 :)
       page: example_plugin
       section: example_plugin_index
       args:
