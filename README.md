@@ -62,7 +62,7 @@ namespace PluginFactory\Core;
 class SomePageCallback {
 
     public function template(): void {
-        echo '<h2>Default template</h2>';
+        echo '<h2>My template</h2>';
     }
 }
 ```
@@ -82,12 +82,12 @@ services:
       icon_url: dashicons-store
       position: 110
     links:
-    - link_title: Visit Settings
+    - title: Visit Settings
       link: admin.php
-      link_menu_slug: example_plugin
-    - link_title: My link
+      menu_slug: example_plugin
+    - title: My link
       link: options-general.php
-      link_menu_slug: example_plugin
+      menu_slug: example_plugin
   PluginFactory\Core\EnqueueScripts:
     # action: wp_enqueue_scripts
     scripts:

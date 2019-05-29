@@ -104,9 +104,9 @@ class Admin implements ServiceContract {
             foreach ($links as $link) {
                 $pluginLink = new PluginLink();
 
-                $pluginLink->setTitle($link['link_title'] ?? 'Settings');
+                $pluginLink->setTitle($link['title'] ?? 'Settings');
                 $pluginLink->setLink($link['link'] ?? 'admin.php');
-                $pluginLink->setSlug($link['link_menu_slug'] ?? 'plugin_factory');
+                $pluginLink->setSlug($link['menu_slug'] ?? 'plugin_factory');
 
                 $pluginLink->apply();
             }

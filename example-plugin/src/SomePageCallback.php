@@ -4,6 +4,6 @@ namespace PluginFactory\Core;
 class SomePageCallback {
 
     public function template(): void {
-        echo '<h2>Default template</h2>';
+        echo '<h2>My template</h2>';
     }
 }
