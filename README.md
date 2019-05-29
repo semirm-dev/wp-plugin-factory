@@ -133,6 +133,7 @@ custom_fields:
       callback:
         class: ExamplePlugin\FieldCallbacks
         func: optionGroup
+        params:
     sections:
     - id: example_plugin_index
       title: Settings
