@@ -10,7 +10,7 @@ abstract class BasePlugin {
     use Base;
 
     /**
-     * Plugin factory settings array
+     * Plugin factory settings
      *
      * @var array
      */
@@ -45,27 +45,16 @@ abstract class BasePlugin {
      * @return  void 
      */
     public function register(): void {
-        $this->applyPluginFactorySettings();
+        $this->pluginFactorySettings = Yaml::parseFile($this->pluginFactoryPath());
 
         foreach ($this->services() as $service => $options) {
-            $serviceInstance = new $service;
+            $serviceInstance = new $service();
 
             if ($serviceInstance instanceof ServiceContract) {
 
                 $serviceInstance->register($options);
             }
         }
-    }
-
-    /**
-     * Helper function to include/parse plugin factory settings file
-     *
-     * @return  void 
-     */
-    private function applyPluginFactorySettings(): void {
-        $factoryPath = $this->pluginFactoryPath();
-
-        $this->pluginFactorySettings = Yaml::parseFile($factoryPath);
     }
 
     /**
