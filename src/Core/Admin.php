@@ -76,7 +76,7 @@ class Admin implements ServiceContract {
     }
 
     /**
-     * Helper function at add main menu pages
+     * Helper function to add main menu pages
      *
      * @param   array  $pages  Pages to add
      *
