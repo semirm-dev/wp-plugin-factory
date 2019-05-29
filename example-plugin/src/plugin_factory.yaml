@@ -38,6 +38,8 @@ custom_fields:
       #   func: customOptionGroup
     - option_group: example_plugin_option_group
       option_name: text_example_2
+    - option_group: example_plugin_option_group
+      option_name: text_example_3
     sections:
     - id: example_plugin_index
       title: Settings
@@ -67,3 +69,13 @@ custom_fields:
       page: example_plugin
       section: example_plugin_index
       args:
+    - id: text_example_3
+    title: Field 3 title
+    callback:
+      type: TextArea
+      params:
+        col: 30
+        row: 3
+    page: example_plugin
+    section: example_plugin_index
+    args:
