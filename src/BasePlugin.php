@@ -1,6 +1,8 @@
 <?php
 namespace PluginFactory;
 
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * Base class for plugins
  */
@@ -43,7 +45,7 @@ abstract class BasePlugin {
      * @return  void 
      */
     public function register(): void {
-        $this->includePluginFactorySettings();
+        $this->applyPluginFactorySettings();
 
         foreach ($this->services() as $service => $options) {
             $serviceInstance = new $service;
@@ -60,12 +62,10 @@ abstract class BasePlugin {
      *
      * @return  void 
      */
-    private function includePluginFactorySettings(): void {
+    private function applyPluginFactorySettings(): void {
         $factoryPath = $this->pluginFactoryPath();
-        
-        require_once($factoryPath);
 
-        $this->pluginFactorySettings = $pluginFactorySettings;
+        $this->pluginFactorySettings = Yaml::parseFile($factoryPath);
     }
 
     /**

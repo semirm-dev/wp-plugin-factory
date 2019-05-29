@@ -1,0 +1,30 @@
+services:
+  PluginFactory\Core\Admin:
+    pages:
+    - title: Example Plugin
+      menu_title: Example Plugin
+      capability: manage_options
+      menu_slug: example_plugin
+      callback:
+        class: ExamplePlugin\SomePageCallback
+        func: template
+      icon_url: dashicons-store
+      position: 110
+    links:
+    - link_title: Visit Settings
+      link: admin.php
+      link_menu_slug: example_plugin
+    - link_title: My link
+      link: options-general.php
+      link_menu_slug: example_plugin
+  PluginFactory\Core\EnqueueScripts:
+    # action: wp_enqueue_scripts
+    scripts:
+      handle: example_plugin_scripts
+      src:
+      - assets/scripts/m_script.js
+    styles:
+      handle: example_plugin_styles
+      src:
+      - assets/styles/m_style.css
+  ExamplePlugin\CPT\Book: []
