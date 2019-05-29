@@ -117,6 +117,10 @@ class CustomFieldContractor {
                 $func = 'draw';
             }
 
+            if (is_null($class) || is_null($func)) {
+                throw new \Exception("Either callback.type or callback.class+func must be provided!");
+            }
+
             add_settings_field($field['id'], $field['title'], function() use ($class, $func, $id, $params) {
                 call_user_func_array([new $class(), $func], [$id, $params]);
             }, $field['page'], $field['section'], $field['args']);
