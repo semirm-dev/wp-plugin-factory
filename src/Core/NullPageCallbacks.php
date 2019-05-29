@@ -2,9 +2,9 @@
 namespace PluginFactory\Core;
 
 /**
- * DefaultPageCallback is used when no page callback is provided in plugin_factory settings file
+ * NullPageCallbacks is used when no page callback is provided in plugin_factory settings file
  */
-class DefaultPageCallbacks {
+class NullPageCallbacks {
 
     /**
      * Template to display

@@ -130,8 +130,13 @@ class Admin implements ServiceContract {
         $page->setIconURL($pageOptions['icon_url'] ?? 'dashicons-store');
         $page->setPosition($pageOptions['position'] ?? self::DEFAULT_POSITION);
 
-        $class = $pageOptions['callback']['class'] ?? new DefaultPageCallbacks();
-        $func = $pageOptions['callback']['func'] ?? 'mainPageTemplate';
+        $class = new NullPageCallbacks();
+        $func = 'mainPageTemplate';
+
+        if (isset($pageOptions['callback']['class']) && isset($pageOptions['callback']['func'])) {
+            $class = $pageOptions['callback']['class'];
+            $func = $pageOptions['callback']['func'];
+        }
         
         $page->setCallback([new $class(), $func]);
 

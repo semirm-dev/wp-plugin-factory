@@ -72,19 +72,19 @@ class SomePageCallback {
 * [example-plugin/src/FieldCallbacks.php](https://github.com/semirm-dev/wp-plugin-factory/blob/master/example-plugin/src/FieldCallbacks.php)
 ```php
 <?php
-namespace ExamplePlugin\Core;
+namespace ExamplePlugin;
 
 class FieldCallbacks {
 
-    public function optionGroup($input) {
+    public function customOptionGroup($input) {
         return $input;
     }
 
-    public function indexSection(array $params) {
+    public function customIndexSection(array $params = null) {
         echo $params['title'] ?? 'My title default';
     }
 
-    public function textField(string $id, array $params) {
+    public function customTextField(string $id, array $params = null) {
         $val = esc_attr(get_option($id));
         $placeHolder = esc_attr($params['place_holder'] ?? 'My placeholder default');
 
@@ -103,7 +103,7 @@ services:
       capability: manage_options
       menu_slug: example_plugin
       callback:
-        class: ExamplePlugin\SomePageCallback
+        class: ExamplePlugin\PageCallbacks
         func: template
       icon_url: dashicons-store
       position: 110
@@ -130,39 +130,37 @@ custom_fields:
     settings:
     - option_group: example_plugin_option_group
       option_name: text_example
-      callback:
-        class: ExamplePlugin\FieldCallbacks
-        func: optionGroup
     - option_group: example_plugin_option_group
       option_name: text_example_2
+      # optional custom callback
       callback:
         class: ExamplePlugin\FieldCallbacks
-        func: optionGroup
+        func: customOptionGroup
     sections:
     - id: example_plugin_index
       title: Settings
+      # optional custom callback
       callback:
         class: ExamplePlugin\FieldCallbacks
-        func: indexSection
+        func: customIndexSection
         params: 
           title: My admin panel settings
       page: example_plugin
     fields:
     - id: text_example
       title: Field 1 title
+      # note either builtin default type or custom class + func is required
       callback:
-        class: ExamplePlugin\FieldCallbacks
-        func: textField
-        params:
-          place_holder: Placeholder text :)
+        type: TextField
       page: example_plugin
       section: example_plugin_index
       args:
     - id: text_example_2
       title: Field 2 title
+      # note either builtin default type or custom class + func is required
       callback:
         class: ExamplePlugin\FieldCallbacks
-        func: textField
+        func: customTextField
         params:
           place_holder: Placeholder text 2 :)
       page: example_plugin

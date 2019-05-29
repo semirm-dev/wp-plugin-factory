@@ -1,17 +1,17 @@
 <?php
-namespace ExamplePlugin\Core;
+namespace RedisManager;
 
 class FieldCallbacks {
 
-    public function optionGroup($input) {
+    public function customOptionGroup($input) {
         return $input;
     }
 
-    public function indexSection(array $params) {
+    public function customIndexSection(array $params = null) {
         echo $params['title'] ?? 'My title default';
     }
 
-    public function textField(string $id, array $params) {
+    public function customTextField(string $id, array $params = null) {
         $val = esc_attr(get_option($id));
         $placeHolder = esc_attr($params['place_holder'] ?? 'My placeholder default');
 
