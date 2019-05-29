@@ -2,7 +2,7 @@
 namespace PluginFactory\Core;
 
 /**
- * DefaultPageCallback is used when no page callback is provided in plugin_factory.php
+ * DefaultPageCallback is used when no page callback is provided in plugin_factory settings file
  */
 class DefaultPageCallbacks {
 
@@ -12,6 +12,6 @@ class DefaultPageCallbacks {
      * @return  void 
      */
     public function mainPageTemplate(): void {
-        echo '<h2>Default template</h2>';
+        echo '<h2>Default template. Consider using your own!</h2>';
     }
 }
