@@ -59,12 +59,36 @@ class Plugin extends BasePlugin {
 * [example-plugin/src/SomePageCallback.php](https://github.com/semirm-dev/wp-plugin-factory/blob/master/example-plugin/src/SomePageCallback.php)
 ```php
 <?php
-namespace PluginFactory\Core;
+namespace ExamplePlugin\Core;
 
 class SomePageCallback {
 
     public function template(): void {
         echo '<h2>My template</h2>';
+    }
+}
+```
+
+* [example-plugin/src/FieldCallbacks.php](https://github.com/semirm-dev/wp-plugin-factory/blob/master/example-plugin/src/FieldCallbacks.php)
+```php
+<?php
+namespace ExamplePlugin\Core;
+
+class FieldCallbacks {
+
+    public function optionGroup(array $params) {
+        // code
+    }
+
+    public function indexSection(array $params) {
+        echo $params['title'] ?? 'My title default';
+    }
+
+    public function textField(array $params) {
+        $val = esc_attr(get_option($params['id']));
+        $placeHolder = esc_attr($params['place_holder'] ?? 'My placeholder default');
+
+        echo '<input type="text" class="regular-text" name="' . $params['id'] . '" value="' . $val . '" placeholder="' . $placeHolder . '"/>';
     }
 }
 ```
@@ -101,4 +125,33 @@ services:
       src:
       - assets/styles/m_style.css
   ExamplePlugin\CPT\Book: []
+custom_fields:
+  custom_field_settings_1:
+    settings:
+    - option_group: example_plugin_option_group
+      option_name: text_example
+      callback:
+        class: ExamplePlugin\FieldCallbacks
+        func: optionGroup
+    sections:
+    - id: example_plugin_index
+      title: Settings
+      callback:
+        class: ExamplePlugin\FieldCallbacks
+        func: indexSection
+        params: 
+          title: My admin panel settings
+      page: example_plugin
+    fields:
+    - id: example_plugin_field_id
+      title: Field 1 title
+      callback:
+        class: ExamplePlugin\FieldCallbacks
+        func: textField
+        params:
+          id: example_plugin_field_id
+          place_holder: Placeholder text :)
+      page: example_plugin
+      section: example_plugin_index
+      args:
 ```

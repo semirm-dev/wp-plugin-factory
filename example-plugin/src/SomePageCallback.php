@@ -1,5 +1,5 @@
 <?php
-namespace PluginFactory\Core;
+namespace ExamplePlugin\Core;
 
 class SomePageCallback {
 
