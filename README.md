@@ -56,43 +56,6 @@ class Plugin extends BasePlugin {
 }
 ```
 
-* [example-plugin/src/SomePageCallback.php](https://github.com/semirm-dev/wp-plugin-factory/blob/master/example-plugin/src/SomePageCallback.php)
-```php
-<?php
-namespace ExamplePlugin\Core;
-
-class SomePageCallback {
-
-    public function template(): void {
-        echo '<h2>My template</h2>';
-    }
-}
-```
-
-* [example-plugin/src/FieldCallbacks.php](https://github.com/semirm-dev/wp-plugin-factory/blob/master/example-plugin/src/FieldCallbacks.php)
-```php
-<?php
-namespace ExamplePlugin;
-
-class FieldCallbacks {
-
-    public function customOptionGroup($input) {
-        return $input;
-    }
-
-    public function customIndexSection(array $params = null) {
-        echo $params['title'] ?? 'My title default';
-    }
-
-    public function customTextField(string $id, array $params = null) {
-        $val = esc_attr(get_option($id));
-        $placeHolder = esc_attr($params['place_holder'] ?? 'My placeholder default');
-
-        echo '<input type="text" class="regular-text" name="' . $id . '" value="' . $val . '" placeholder="' . $placeHolder . '"/>';
-    }
-}
-```
-
 * [example-plugin/src/plugin_factory.yaml](https://github.com/semirm-dev/wp-plugin-factory/blob/master/example-plugin/src/plugin_factory.yaml)
 ```yaml
 services:
