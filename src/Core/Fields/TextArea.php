@@ -1,16 +1,18 @@
 <?php
 namespace PluginFactory\Core\Fields;
 
+use PluginFactory\Drawable;
+
 /**
  * Default implementation for text area
  */
-class TextArea {
+class TextArea implements Drawable {
 
     /**
-     * Callback to call on add_settings_field hook
+     * @override
      *
-     * @param   string  $id      Field id, corresponds to settings.option_name
-     * @param   array   $params  Params to pass
+     * @param   string  $id      
+     * @param   array   $params  
      *
      * @return  void             
      */

@@ -1,6 +1,10 @@
 <?php
 namespace PluginFactory\Core;
 
+use PluginFactory\Drawable;
+use PluginFactory\OptionGroupCallback;
+use PluginFactory\SectionsCallback;
+
 /**
  * CustomFieldContractor is responsible to register custom fields from factory settings file
  */
@@ -12,6 +16,20 @@ class CustomFieldContractor {
      * @var  string
      */
     private const FIELDS_NAMESPACE = 'PluginFactory\\Core\\Fields\\';
+
+    /**
+     * Namespace where default implementation for OptionGroupCallback is located
+     *
+     * @var  string
+     */
+    private const OPTION_GROUP_NAMESPACE = 'PluginFactory\\Core\\';
+
+    /**
+     * Namespace where default implementation for SectionsCallback is located
+     *
+     * @var  string
+     */
+    private const SECTIONS_NAMESPACE = 'PluginFactory\\Core\\';
 
     /**
      * Register custom fields
@@ -27,28 +45,6 @@ class CustomFieldContractor {
         
         $this->addFields($options['fields']);
     }
-
-    /**
-     * Default callback for options group
-     *
-     * @param   mix  $input
-     *
-     * @return  mix         
-     */
-    public function optionsGroup($input) {
-        return $input;
-    }
-
-    /**
-     * Default callback for section
-     *
-     * @param   array  $params  Params to pass
-     *
-     * @return  void          
-     */
-    public function indexSection(array $params = null) {
-        echo '';
-    }
     
     /**
      * Helper function to register settings
@@ -60,15 +56,14 @@ class CustomFieldContractor {
      */
     private function registerSettings(array $settingsOptions): void {
         foreach ($settingsOptions as $settings) {
-            $class = $this;
-            $func = 'optionsGroup';
+            $class = $settings['callback'] ?? self::OPTION_GROUP_NAMESPACE . 'DefaultOptionGroupCallback';
 
-            if (isset($settings['callback']['class']) && isset($settings['callback']['func'])) {
-                $class = new $settings['callback']['class'];
-                $func = $settings['callback']['func'];
+            $classInstance = new $class();
+            if (!($classInstance instanceof OptionGroupCallback)) {
+                throw new \Exception("$class must be instance of PluginFactory\OptionGroupCallback");
             }
 
-            register_setting($settings['option_group'], $settings['option_name'], [$class, $func]);
+            register_setting($settings['option_group'], $settings['option_name'], [$classInstance, 'run']);
         }
     }
 
@@ -81,18 +76,17 @@ class CustomFieldContractor {
      */
     private function addSections(array $sectionOptions): void {
         foreach ($sectionOptions as $section) {
-            $class = $this;
-            $func = 'indexSection';
+            $class = $section['callback']['class'] ?? self::SECTIONS_NAMESPACE . 'DefaultSectionsCallback';
 
-            if (isset($section['callback']['class']) && isset($section['callback']['func'])) {
-                $class = new $section['callback']['class'];
-                $func = $section['callback']['func'];
+            $classInstance = new $class();
+            if (!($classInstance instanceof SectionsCallback)) {
+                throw new \Exception("$class must be instance of PluginFactory\SectionSCallback");
             }
 
             $params = $section['callback']['params'] ?? null;
 
-            add_settings_section($section['id'], $section['title'], function() use ($class, $func, $params) {
-                call_user_func_array([$class, $func], [$params]);
+            add_settings_section($section['id'], $section['title'], function() use ($classInstance, $params) {
+                $classInstance->index($params);
             }, $section['page']);
         }
     }
@@ -108,21 +102,20 @@ class CustomFieldContractor {
         foreach ($fieldOptions as $field) {
             $id = $field['id'];
 
-            $class = $field['callback']['class'] ?? null;
-            $func = $field['callback']['func'] ?? '';
+            $class = $field['callback']['custom'] ?? self::FIELDS_NAMESPACE . $field['callback']['type'] ?? null;
             $params = $field['callback']['params'] ?? null;
 
-            if (isset($field['callback']['type'])) {
-                $class = self::FIELDS_NAMESPACE . $field['callback']['type'];
-                $func = 'draw';
+            if (is_null($class)) {
+                throw new \Exception("Either callback.type or callback.custom must be provided!");
             }
 
-            if (is_null($class) || is_null($func)) {
-                throw new \Exception("Either callback.type or callback.class+func must be provided!");
+            $classInstance = new $class();
+            if (!($classInstance instanceof Drawable)) {
+                throw new \Exception("$class must be instance of PluginFactory\Drawable");
             }
 
-            add_settings_field($field['id'], $field['title'], function() use ($class, $func, $id, $params) {
-                call_user_func_array([new $class(), $func], [$id, $params]);
+            add_settings_field($field['id'], $field['title'], function() use ($classInstance, $id, $params) {
+                $classInstance->draw($id, $params);
             }, $field['page'], $field['section'], $field['args']);
         }
     }

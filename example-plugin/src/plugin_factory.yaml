@@ -33,9 +33,7 @@ custom_fields:
     settings:
     - option_group: example_plugin_option_group
       option_name: text_example
-      # callback:
-      #   class: ExamplePlugin\FieldCallbacks
-      #   func: customOptionGroup
+      # callback: ExamplePlugin\CustomOptionGroupCallback
     - option_group: example_plugin_option_group
       option_name: text_example_2
     - option_group: example_plugin_option_group
@@ -44,21 +42,20 @@ custom_fields:
     - id: example_plugin_index
       title: Settings
       # callback:
-      #   class: ExamplePlugin\FieldCallbacks
-      #   func: customIndexSection
+      #   class: ExamplePlugin\CustomSectionsCallback
       #   params: 
-      #     title: My admin panel settings
+      #     desc: My admin panel settings
       page: example_plugin
     fields:
     - id: text_example
       title: Field 1 title
-      # note either builtin default type or custom class + func is required
+      # either type (builtin) or custom field is required
+      # if both provided, custom gets higher priority
       callback:
         type: TextField
-        # class: ExamplePlugin\FieldCallbacks
-        # func: customTextField
-        # params:
-        #   place_holder: Placeholder text 1 :)
+        # custom: ExamplePlugin\CustomTextField
+        params:
+          place_holder: Placeholder text 1 :)
       page: example_plugin
       section: example_plugin_index
       args:
