@@ -48,6 +48,10 @@ abstract class BasePlugin {
      * @return  void 
      */
     public function register(): void {
+        register_activation_hook(__FILE__, [$this, 'activate']);
+
+        register_deactivation_hook(__FILE__, [$this, 'deactivate']);
+
         $this->pluginFactorySettings = Yaml::parseFile($this->pluginFactoryPath());
 
         $this->registerServices();
