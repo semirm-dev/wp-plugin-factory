@@ -1,5 +1,5 @@
 <?php
-namespace PluginFactory\Core;
+namespace PluginFactory\Core\Fields;
 
 use PluginFactory\OptionGroupCallback;
 

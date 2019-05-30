@@ -11,25 +11,11 @@ use PluginFactory\SectionsCallback;
 class CustomFieldContractor {
 
     /**
-     * Namespace where default fields are located
+     * Namespace where default custom fields implementations are located
      *
      * @var  string
      */
-    private const FIELDS_NAMESPACE = 'PluginFactory\\Core\\Fields\\';
-
-    /**
-     * Namespace where default implementation for OptionGroupCallback is located
-     *
-     * @var  string
-     */
-    private const OPTION_GROUP_NAMESPACE = 'PluginFactory\\Core\\';
-
-    /**
-     * Namespace where default implementation for SectionsCallback is located
-     *
-     * @var  string
-     */
-    private const SECTIONS_NAMESPACE = 'PluginFactory\\Core\\';
+    private const CUSTOM_FIELDS_NAMESPACE = 'PluginFactory\\Core\\Fields\\';
 
     /**
      * Register custom fields
@@ -56,7 +42,7 @@ class CustomFieldContractor {
      */
     private function registerSettings(array $settingsOptions): void {
         foreach ($settingsOptions as $settings) {
-            $class = $settings['callback'] ?? self::OPTION_GROUP_NAMESPACE . 'DefaultOptionGroupCallback';
+            $class = $settings['callback'] ?? self::CUSTOM_FIELDS_NAMESPACE . 'DefaultOptionGroupCallback';
 
             $classInstance = new $class();
             if (!($classInstance instanceof OptionGroupCallback)) {
@@ -76,7 +62,7 @@ class CustomFieldContractor {
      */
     private function addSections(array $sectionOptions): void {
         foreach ($sectionOptions as $section) {
-            $class = $section['callback']['class'] ?? self::SECTIONS_NAMESPACE . 'DefaultSectionsCallback';
+            $class = $section['callback']['class'] ?? self::CUSTOM_FIELDS_NAMESPACE . 'DefaultSectionsCallback';
 
             $classInstance = new $class();
             if (!($classInstance instanceof SectionsCallback)) {
@@ -102,7 +88,7 @@ class CustomFieldContractor {
         foreach ($fieldOptions as $field) {
             $id = $field['id'];
 
-            $class = $field['callback']['custom'] ?? self::FIELDS_NAMESPACE . $field['callback']['type'] ?? null;
+            $class = $field['callback']['custom'] ?? self::CUSTOM_FIELDS_NAMESPACE . $field['callback']['type'] ?? null;
             $params = $field['callback']['params'] ?? null;
 
             if (is_null($class)) {
