@@ -23,8 +23,4 @@ use ExamplePlugin\Plugin;
 
 $plugin = new Plugin();
 
-register_activation_hook(__FILE__, [$plugin, 'activate']);
-
-register_deactivation_hook(__FILE__, [$plugin, 'deactivate']);
-
 $plugin->register();
